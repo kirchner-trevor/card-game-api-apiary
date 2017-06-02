@@ -1,80 +1,56 @@
 FORMAT: 1A
-HOST: http://polls.apiblueprint.org/
 
-# Sample
+# Card Game API
 
-Polls is a simple API allowing consumers to view polls and vote in them.
+Card Game API is a simple API allowing consumers to create and play simple card games.
 
-## Questions Collection [/questions]
+## Cards Collection [/cards]
 
-### List All Questions [GET]
+### List All Cards [GET]
+
+Lists all cards.
 
 + Response 200 (application/json)
 
         [
             {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "votes": 2048
-                    }, {
-                        "choice": "Python",
-                        "votes": 1024
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 512
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 256
-                    }
-                ]
+                "id": 1,
+                "description": "Ace of Spades",
+                "value": 1,
+                "suite": "spades"
+            },
+            {
+                "id": 2,
+                "description": "Two of Spades",
+                "value": 2,
+                "suite": "spades"
             }
         ]
 
-### Create a New Question [POST]
+### Create a New Card [POST]
 
-You may create your own question using this action. It takes a JSON
-object containing a question and a collection of answers in the
-form of choices.
+You may create your own card using this action. It takes a JSON
+object containing a card.
 
 + Request (application/json)
 
         {
-            "question": "Favourite programming language?",
-            "choices": [
-                "Swift",
-                "Python",
-                "Objective-C",
-                "Ruby"
-            ]
+            "description": "Lord of Spades",
+            "value": 100,
+            "suite": "spades"
         }
 
 + Response 201 (application/json)
 
     + Headers
 
-            Location: /questions/2
+            Location: /cards/252
 
     + Body
 
             {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "votes": 0
-                    }, {
-                        "choice": "Python",
-                        "votes": 0
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 0
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 0
-                    }
-                ]
+                "id": 252
+                "description": "Lord of Spades",
+                "value": 100,
+                "suite": "spades"
             }
