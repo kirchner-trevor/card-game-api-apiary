@@ -2,7 +2,7 @@ FORMAT: 1A
 
 # Card Game API
 
-Card Game API is a simple API allowing consumers to create and play simple card games.
+Card Game API is an API allowing consumers to create and play card games.
 
 ## Cards Collection [/cards]
 
@@ -206,3 +206,64 @@ Card Game API is a simple API allowing consumers to create and play simple card 
 ### Remove a Card from a Deck [DELETE]
 
 + Response 204
+
+## Game Collection [/games]
+
+### List All Games [GET]
+
++ Response 200 (application/json)
+
+        [
+            {
+                "id": 856,
+                "description": "My Game"
+            }
+        ]
+        
+### Create a New Game [POST]
+
++ Request (application/json)
+
+        {
+            "description": "My Second Game"
+        }
+        
++ Response 201 (application/json)
+
+    + Headers
+    
+            Location: /games/922
+            
+    + Body
+            
+            {
+                "id": 922,
+                "description": "My Second Game"
+            }
+            
+## Game Deck Collection [/games/{gameId}/decks]
+
++ Parameters
+
+    + gameId: 922 (number) - A unique identifier for the game.
+    
+### Add a Deck to a Game [POST]
+
++ Request (application/json)
+
+        {
+            "ref": "/decks/63
+        }
+        
++ Response 201 (application/json)
+
+    + Headers
+    
+            Location: /games/922/decks/3
+            
+    + Body
+    
+            {
+                "id": 3,
+                "ref": "/decks/63"
+            }
