@@ -8,8 +8,6 @@ Card Game API is a simple API allowing consumers to create and play simple card 
 
 ### List All Cards [GET]
 
-Lists all cards.
-
 + Response 200 (application/json)
 
         [
@@ -29,9 +27,6 @@ Lists all cards.
 
 ### Create a New Card [POST]
 
-You may create your own card using this action. It takes a JSON
-object containing a card.
-
 + Request (application/json)
 
         {
@@ -49,8 +44,165 @@ object containing a card.
     + Body
 
             {
-                "id": 252
+                "id": 252,
                 "description": "Lord of Spades",
                 "value": 100,
                 "suite": "spades"
             }
+            
+## Card [/cards/{cardId}]
+
++ Parameters
+
+    + cardId: 252 (number) - A unique identifier for the card.
+    
+### Get a Card [GET]
+
++ Response 200 (application/json)
+
+    + Body
+    
+            {
+                "id": 252,
+                "description": "Lord of Spades",
+                "value": 100,
+                "suite": "spades"
+            }
+            
+### Replace a Card [PUT]
+
++ Request (application/json)
+
+        {
+            "description": "The Dark Lady",
+            "value": 200,
+            "suite": "spades"
+        }
+        
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "id": 252,
+                "description": "The Dark Lady",
+                "value": 200,
+                "suite": "spades"
+            }
+            
+### Update a Card [PATCH]
+
++ Request (application/merge-patch+json)
+
+    + Headers
+    
+            If-Match: "*" (string) - The ETag of the resource state to modify or "*" to modify any resource state.
+            
+    + Body
+
+            {
+                "value": 250
+            }
+        
++ Response 204
+
+## Decks Collection [/decks]
+
+### List All Decks [GET]
+
++ Response 200 (application/json)
+
+        [
+            {
+                "id": 15,
+                "description": "Standard"
+            }
+        ]
+        
+### Create a New Deck [POST]
+
++ Request (application/json)
+
+        {
+            "description": "Double Standard"
+        }
+        
++ Response 201 (application/json)
+
+    + Headers
+    
+            Location: /decks/63
+            
+    + Body
+        
+            {
+                "id": 63,
+                "description": "Double Standard"
+            }
+            
+## Deck [/decks/{deckId}]
+
++ Parameters
+    + deckId: 63 (number) - A unique identifier for the deck.
+
+### Get a Deck [GET]
+
++ Response 200 (application/json)
+
+        {
+            "id": 63,
+            "description": "Double Standard"
+        }
+        
+## Deck Cards Collection [/decks/{deckId}/cards]
+
++ Parameters
+
+    + deckId: 63 (number) - A unique identifier for the deck.
+    
+### List All Cards in a Deck [GET]
+
++ Response 200 (application/json)
+
+        [
+            {
+                "id": 10,
+                "ref": "/cards/1"
+            },
+            {
+                "id": 11,
+                "ref": "/cards/2"
+            }
+        ]
+        
+### Add Card to a Deck [POST]
+
++ Request (application/json)
+
+        {
+            "ref": "/cards/235"
+        }
+
++ Response 201 (application/json)
+
+    + Headers
+        
+            Location: /decks/63/cards/12
+            
+    + Body
+    
+            {
+                "id": 12,
+                "ref": "/cards/235"
+            }
+
+## Deck Card [/decks/{deckId}/cards/{deckCardId}]
+
++ Parameters
+
+    + deckId: 63 (number) - A unique identifier for the deck.
+    + deckCardId: 12 (number) - A unique identifier for this instance of a card in the deck.
+    
+### Remove a Card from a Deck [DELETE]
+
++ Response 204
